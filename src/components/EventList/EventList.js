@@ -2,19 +2,19 @@ import React from 'react';
 
 import '../EventList/EventList.css';
 
-const EventList  = () => {
+const EventList  = (props) => {
 
     return(
         <div className="event-list">
             <div className="event-item">
             <div className="row">
             <div className="col s6">
-            <div className="event-title">Go to Mymensingh</div>
+            <div className="event-title">{props.title}</div>
             </div>
             <div className="col s4">
             <div className="event-date">
-                <label>2020-01-05</label>
-                <label>Saturday</label>
+                <label>{props.date}</label>
+                <label>{props.day}</label>
             </div>
             </div>
             <div className="col s2">
@@ -29,7 +29,7 @@ const EventList  = () => {
             <div className="col s4"></div>
             <div className="col s6">
                 <div className="event-time-remaining">
-                    2 Month 1 Day 5 hours 54 s
+                    {props.remaining}
                 </div>
             </div>
             </div>
