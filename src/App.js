@@ -21,18 +21,40 @@ class App extends React.Component {
   }
 
   clickhandler(eventTitle, eventDate) {
-    var data = {
-      title: eventTitle,
-      date: eventDate,
-      day: "Saturday",
-      remaining: "1 Days 5 hours 10 min"
-    };
+    if (eventDate != "" && eventDate != "") {
+      var days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ];
+      var date = new Date(eventDate);
+      var dayName = days[date.getDay()];
+      console.log(eventDate - new Date());
 
-    this.state.items.push(data);
+      var formattedDate =
+        date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
-    this.setState({ items: this.state.items });
-    console.log(this.state.items);
+      // var delta = Math.abs(date_future - new Date()) / 1000;
+
+      var data = {
+        title: eventTitle,
+        date: formattedDate,
+        day: dayName,
+        remaining: "1 Days 5 hours 10 min"
+      };
+
+      this.state.items.push(data);
+      this.setState({ items: this.state.items });
+    }
   }
+
+  deleteEvent() {}
+
+  editEvent() {}
 
   render() {
     return (
@@ -41,15 +63,17 @@ class App extends React.Component {
           <EventInput clicked={this.clickhandler} />
         </div>
         <div className="event-list-container">
-          {this.state.items.map((item, index) => (
-            <EventList
-              key={index}
-              title={item.title}
-              date={item.date}
-              day={item.day}
-              remaining={item.remaining}
-            />
-          ))}
+          {this.state.items.map((item, index) => {
+            // const { title, date, day, remaining } = item;
+            return (
+              <EventList
+                key={index}
+                {...item}
+                deleteEvent={this.deleteEvent}
+                editEvent={this.editEvent}
+              />
+            );
+          })}
         </div>
       </div>
     );
