@@ -33,23 +33,38 @@ class App extends React.Component {
       ];
       var date = new Date(eventDate);
       var dayName = days[date.getDay()];
-      console.log(eventDate - new Date());
 
       var formattedDate =
         date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 
-      // var delta = Math.abs(date_future - new Date()) / 1000;
+      var rem = new Date(eventDate) - new Date();
+      var days = Math.floor(rem / 86400000);
+      var hour = Math.floor((rem % 86400000)/3600000);
+      var min =  Math.floor(((rem % 86400000) % 3600000) / 60000);
+      var second = Math.round((((rem % 86400000) % 3600000) / 60000)/1000);
 
+      var remaining = days + ' days ' + hour + ' hour ' + min + ' Minute ' + second + ' second.';
+      
       var data = {
         title: eventTitle,
         date: formattedDate,
         day: dayName,
-        remaining: "1 Days 5 hours 10 min"
+        remaining: remaining
       };
 
       this.state.items.push(data);
       this.setState({ items: this.state.items });
     }
+  }
+
+  getRemainder(eventDate) {
+
+    var currentDate = new Date();
+
+    var yearIntVal = eventDate.getFullYear() - currentDate.getFullYear();
+    
+    
+    
   }
 
   deleteEvent() {}
