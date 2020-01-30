@@ -24,18 +24,18 @@ const EventList = props => {
                 href="#"
                 id="create-event"
                 onClick={props.editEvent}
-                class="waves-effect light-blue btn"
+                className="waves-effect light-blue btn"
               >
-                <i class="material-icons note_add">edit</i>
+                <i className="material-icons note_add">edit</i>
               </a>
               <a
                 type="submit"
                 href="#"
                 id="create-event"
                 onClick={props.deleteEvent}
-                class="waves-effect red lighten-3 btn"
+                className="waves-effect red lighten-3 btn"
               >
-                <i class="material-icons note_add">delete</i>
+                <i className="material-icons note_add">delete</i>
               </a>
             </div>
           </div>

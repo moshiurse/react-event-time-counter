@@ -9,15 +9,43 @@ class App extends React.Component {
     this.clickhandler = this.clickhandler.bind(this);
 
     this.state = {
-      items: [
-        {
-          title: "Go to Mymensingh",
-          date: "2020-01-01",
-          day: "Saturday",
-          remaining: "14 Days 5 hours 10 min"
-        }
-      ]
+      items: []
     };
+  }
+
+  componentDidMount() {
+    setInterval(this.setRemainder.bind(this), 1000);
+  }
+
+  setRemainder() {
+    this.state.items.map(item => {
+      var rem = new Date(item.date) - new Date();
+      // console.log(rem);
+      var days = Math.floor(rem / 86400000);
+      var hour = Math.floor((rem % 86400000) / 3600000);
+      var min = Math.floor(((rem % 86400000) % 3600000) / 60000);
+      var second = Math.floor(((rem % 86400000) % 3600000) / 60000 / 1000);
+      // console.log(second);
+      var remaining =
+        days +
+        " days " +
+        hour +
+        " hour " +
+        min +
+        " Minute " +
+        second +
+        " second.";
+      // console.log(rem);
+
+      this.setState(prevState => ({
+        items: prevState.items.map(obj =>
+          obj.title === item.title
+            ? Object.assign(obj, { remaining: remaining })
+            : obj
+        )
+      }));
+    });
+    return true;
   }
 
   clickhandler(eventTitle, eventDate) {
@@ -39,12 +67,20 @@ class App extends React.Component {
 
       var rem = new Date(eventDate) - new Date();
       var days = Math.floor(rem / 86400000);
-      var hour = Math.floor((rem % 86400000)/3600000);
-      var min =  Math.floor(((rem % 86400000) % 3600000) / 60000);
-      var second = Math.round((((rem % 86400000) % 3600000) / 60000)/1000);
+      var hour = Math.floor((rem % 86400000) / 3600000);
+      var min = Math.floor(((rem % 86400000) % 3600000) / 60000);
+      var second = Math.round(((rem % 86400000) % 3600000) / 60000 / 1000);
 
-      var remaining = days + ' days ' + hour + ' hour ' + min + ' Minute ' + second + ' second.';
-      
+      var remaining =
+        days +
+        " days " +
+        hour +
+        " hour " +
+        min +
+        " Minute " +
+        second +
+        " second.";
+
       var data = {
         title: eventTitle,
         date: formattedDate,
@@ -55,16 +91,6 @@ class App extends React.Component {
       this.state.items.push(data);
       this.setState({ items: this.state.items });
     }
-  }
-
-  getRemainder(eventDate) {
-
-    var currentDate = new Date();
-
-    var yearIntVal = eventDate.getFullYear() - currentDate.getFullYear();
-    
-    
-    
   }
 
   deleteEvent() {}

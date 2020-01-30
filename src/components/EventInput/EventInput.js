@@ -63,9 +63,9 @@ class EventInput extends React.Component {
                 date: ""
               });
             }}
-            class="waves-effect waves-light deep-purple lighten-3 btn"
+            className="waves-effect waves-light deep-purple lighten-3 btn"
           >
-            <i class="material-icons note_add">add</i>
+            <i className="material-icons note_add">add</i>
           </a>
         </form>
       </div>
